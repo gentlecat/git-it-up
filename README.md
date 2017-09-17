@@ -1,6 +1,6 @@
 # Git it up 💁
 
-Keeps your git repository in sync with the remote.
+Keeps your git repository in sync with the remote. Useful, for example, for keeping a simple repository on a server up-to-date.
 
 ## Usage
 
