@@ -1,0 +1,24 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+
+  validate:
+    runs-on: docker
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Files are streamed in with tar because bind mounts would resolve on the
+      # Docker host, not in this job container. There are no tests to run.
+      - name: Ruby syntax
+        run: |
+          tar -c *.rb | docker run --rm -i ruby:4.0-slim \
+            sh -ec 'mkdir /w && cd /w && tar -x && for f in *.rb; do ruby -wc "$f"; done'
